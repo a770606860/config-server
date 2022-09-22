@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    username: root
+    password: 1234
+    url: jdbc:mysql://localhost:3306/limit_demo?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+  #    schema:
+  #      - classpath: script/init_database.sql
+  #    initialization-mode: always
+  #    platform: mysql
+  #    sql-script-encoding: UTF-8
+
+  sql:
+    init:
+      separator: ; #断句分隔符，默认为 ; 号，如果执行语句中有 存储过程 或 游标 这种 则需要更改
+      encoding: UTF-8
+      platform: all #默认值为all 在不同数据库切换的情况下才使用 all 配置，spring boot 会自动检测当前使用的数据库
+      mode: never # 初始化模式，有三个值：always：始终执行初始化、embedded：只初始化内存数据库（默认）、never：不执行初始化
+      schema-locations: #表初始化语句 DDL，默认加载 schema.sql
+        - classpath:script/init_database.sql
+#      data-locations: #数据初始化 DQL（数据查询）或 DML（数据操作），默认加载 data.sql，
+#        - classpath:sql/data.sql
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.demo.model
+#  logging:
+#    level:
+#      com.example.demo.mybatis.mapper: trace
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: false
+  support-methods-arguments: true
